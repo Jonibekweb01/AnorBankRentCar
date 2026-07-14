@@ -1,0 +1,7 @@
+export { HeroSection } from './HeroSection/HeroSection'
+export { FeaturesSection } from './FeaturesSection/FeaturesSection'
+export { AboutSection } from './AboutSection/AboutSection'
+export { VehiclesSection } from './VehiclesSection/VehiclesSection'
+export { StatisticsSection } from './StatisticsSection/StatisticsSection'
+export { MobileAppSection } from './MobileAppSection/MobileAppSection'
+export { CallToActionSection } from './CallToActionSection/CallToActionSection'
