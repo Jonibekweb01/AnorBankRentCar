@@ -1,6 +1,6 @@
 import { Container } from '@mantine/core'
 
-import Logo from '../../assets/images/logo.svg'
+import Logo from '../../assets/images/Logo.svg'
 import Call from '../../assets/images/call-icon.svg'
 
 import {
