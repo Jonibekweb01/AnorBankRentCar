@@ -4,6 +4,7 @@ import '@mantine/notifications/styles.css'
 
 import { MantineProvider } from '@mantine/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { Home } from './pages/Home/Home'
@@ -56,6 +57,7 @@ function App() {
       <MantineProvider theme={theme}>
         <RouterProvider router={router} />
       </MantineProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
