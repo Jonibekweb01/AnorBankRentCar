@@ -1,7 +1,9 @@
 import { useSearchParams } from 'react-router'
-import type { CategoryItem } from '../../api/api'
+
+import type { CategoryItem, ProductItem } from '../../api/api'
 import { useCategories } from '../../hooks/useCategories'
 import { useProducts } from '../../hooks/useHooks'
+import type { Car } from '../../shared/types/car'
 import { CarsGrid } from '../CarsGrid/CarsGrid'
 import {
   VehicleGroupSectionWrapper,
@@ -29,21 +31,23 @@ export const VehicleGroupSection = () => {
     })),
   ]
 
-  const filteredCars = (
+  const filteredCars: Car[] = (
     currentCategory === 'all'
       ? products
       : products.filter(
-          (prod: any) =>
+          (prod: ProductItem) =>
             prod.category?.name?.toLowerCase() ===
               currentCategory.toLowerCase() ||
             prod.category?.slug?.toLowerCase() === currentCategory.toLowerCase()
         )
-  ).map((prod: any) => ({
+  ).map((prod: ProductItem): Car => ({
     id: prod.id,
     name: prod.title,
     category: prod.category?.name || 'Uncategorized',
     price: prod.price,
     image: prod.images?.[0] || 'https://placehold.co/600x400',
+    transmission: 'Automatic',
+    fuel: 'Petrol',
     features: [
       { label: 'Brand New', icon: 'https://placehold.co/24' },
       { label: 'Available', icon: 'https://placehold.co/24' },

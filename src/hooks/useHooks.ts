@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchProducts } from '../api/api'
+
+import { fetchProducts, type ProductItem } from '../api/api'
 
 export const PRODUCTS_KEY = 'products-key'
 
 export const useProducts = () =>
-  useQuery({
+  useQuery<ProductItem[]>({
     queryKey: [PRODUCTS_KEY],
     queryFn: fetchProducts,
   })
