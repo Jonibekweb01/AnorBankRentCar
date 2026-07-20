@@ -27,7 +27,6 @@ export const BookNowSection = () => {
 
             <BookNowButton type="button">Book now</BookNowButton>
           </BookNowContent>
-
         </BookNowCard>
       </Container>
     </BookNowWrapper>

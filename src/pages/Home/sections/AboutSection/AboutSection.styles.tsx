@@ -31,7 +31,7 @@ export const AboutContent = styled.div`
 export const AboutList = styled.div`
   display: flex;
   flex-direction: column;
-//   gap: 34px;
+  //   gap: 34px;
 `
 
 export const AboutItem = styled.article`

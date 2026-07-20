@@ -128,7 +128,7 @@ export const CarInfoSection = () => {
                 ))}
               </EquipmentGrid>
             </EquipmentWrapper>
-          </CarDetailsRight>  
+          </CarDetailsRight>
         </CarDetailsGrid>
       </Container>
     </CarDetailsSectionWrapper>

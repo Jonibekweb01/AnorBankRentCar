@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router'
-
+import type { CategoryItem } from '../../api/api'
 import { useCategories } from '../../hooks/useCategories'
-import { cars } from '../../shared/data/cars'
+import { useProducts } from '../../hooks/useHooks'
 import { CarsGrid } from '../CarsGrid/CarsGrid'
 import {
   VehicleGroupSectionWrapper,
@@ -12,26 +12,49 @@ import {
 
 export const VehicleGroupSection = () => {
   const [searchParams] = useSearchParams()
-  const { data: apiCategories = [], isLoading, isError, error } = useCategories()
+  const { data: apiCategories = [], isLoading: isCatsLoading } = useCategories()
+  const {
+    data: products = [],
+    isLoading: isProdsLoading,
+    isError,
+  } = useProducts()
 
   const currentCategory = searchParams.get('category') || 'all'
 
   const tabs = [
-    { label: 'All vehicles', value: 'all' },
-    ...apiCategories.map((item) => ({
+    { label: 'All categories', value: 'all' },
+    ...apiCategories.map((item: CategoryItem) => ({
       label: item.name,
-      value: item.slug,
+      value: item.slug || item.name.toLowerCase(),
     })),
   ]
 
-  const filteredCars =
+  const filteredCars = (
     currentCategory === 'all'
-      ? cars
-      : cars.filter((car) => car.category.toLowerCase() === currentCategory)
+      ? products
+      : products.filter(
+          (prod: any) =>
+            prod.category?.name?.toLowerCase() ===
+              currentCategory.toLowerCase() ||
+            prod.category?.slug?.toLowerCase() === currentCategory.toLowerCase()
+        )
+  ).map((prod: any) => ({
+    id: prod.id,
+    name: prod.title,
+    category: prod.category?.name || 'Uncategorized',
+    price: prod.price,
+    image: prod.images?.[0] || 'https://placehold.co/600x400',
+    features: [
+      { label: 'Brand New', icon: 'https://placehold.co/24' },
+      { label: 'Available', icon: 'https://placehold.co/24' },
+    ],
+  }))
+
+  const isLoading = isCatsLoading || isProdsLoading
 
   return (
     <VehicleGroupSectionWrapper>
-      <VehicleGroupTitle>Select a vehicle group</VehicleGroupTitle>
+      <VehicleGroupTitle>Select a vehicle category</VehicleGroupTitle>
 
       <VehicleGroupTabs>
         {tabs.map((item) => (
@@ -49,12 +72,8 @@ export const VehicleGroupSection = () => {
         ))}
       </VehicleGroupTabs>
 
-      {isLoading && <p style={{ marginTop: '16px' }}>Loading categories...</p>}
-      {isError && (
-        <p style={{ marginTop: '16px' }}>
-          {(error as Error)?.message || 'Failed to load categories'}
-        </p>
-      )}
+      {isLoading && <p style={{ marginTop: '16px' }}>Loading data...</p>}
+      {isError && <p style={{ marginTop: '16px' }}>Failed to load products</p>}
 
       <CarsGrid cars={filteredCars} />
     </VehicleGroupSectionWrapper>

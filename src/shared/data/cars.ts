@@ -59,7 +59,7 @@ export const cars: Car[] = [
     image: CarsImg,
     transmission: 'Automatic',
     fuel: 'PB 95',
-     features: [
+    features: [
       {
         icon: TransmissionIcon,
         label: 'Automat',
@@ -82,7 +82,7 @@ export const cars: Car[] = [
     image: CarsImg,
     transmission: 'Automatic',
     fuel: 'PB 95',
-     features: [
+    features: [
       {
         icon: TransmissionIcon,
         label: 'Automat',
@@ -128,7 +128,7 @@ export const cars: Car[] = [
     image: CarsImg,
     transmission: 'Automatic',
     fuel: 'PB 95',
-     features: [
+    features: [
       {
         icon: TransmissionIcon,
         label: 'Automat',
@@ -144,72 +144,72 @@ export const cars: Car[] = [
     ],
   },
   {
-  id: 7,
-  name: 'Mercedes',
-  category: 'Van',
-  price: 50,
-  image: CarsImg,
-  transmission: 'Automatic',
-  fuel: 'PB 95',
-  features: [
-    {
-      icon: TransmissionIcon,
-      label: 'Automat',
-    },
-    {
-      icon: FuelIcon,
-      label: 'PB 95',
-    },
-    {
-      icon: SnowIcon,
-      label: 'Air Conditioner',
-    },
-  ],
-},
-{
-  id: 8,
-  name: 'Toyota',
-  category: 'Sport',
-  price: 60,
-  image: CarsImg,
-  transmission: 'Manual',
-  fuel: 'PB 95',
-  features: [
-    {
-      icon: TransmissionIcon,
-      label: 'Manual',
-    },
-    {
-      icon: FuelIcon,
-      label: 'PB 95',
-    },
-    {
-      icon: SnowIcon,
-      label: 'Air Conditioner',
-    },
-  ],
-},
-{
-  id: 9,
-  name: 'Maybach',
-  category: 'Sedan',
-  price: 70,
-  image: CarsImg,
-  transmission: 'Automatic',
-  fuel: 'PB 95',
-  features: [
-    {
-      icon: TransmissionIcon,
-      label: 'Automat',
-    },
-    {
-      icon: FuelIcon,
-      label: 'PB 95',
-    },
-    {
-      icon: SnowIcon,
-      label: 'Air Conditioner',
-    },
-  ],
-},
+    id: 7,
+    name: 'Mercedes',
+    category: 'Van',
+    price: 50,
+    image: CarsImg,
+    transmission: 'Automatic',
+    fuel: 'PB 95',
+    features: [
+      {
+        icon: TransmissionIcon,
+        label: 'Automat',
+      },
+      {
+        icon: FuelIcon,
+        label: 'PB 95',
+      },
+      {
+        icon: SnowIcon,
+        label: 'Air Conditioner',
+      },
+    ],
+  },
+  {
+    id: 8,
+    name: 'Toyota',
+    category: 'Sport',
+    price: 60,
+    image: CarsImg,
+    transmission: 'Manual',
+    fuel: 'PB 95',
+    features: [
+      {
+        icon: TransmissionIcon,
+        label: 'Manual',
+      },
+      {
+        icon: FuelIcon,
+        label: 'PB 95',
+      },
+      {
+        icon: SnowIcon,
+        label: 'Air Conditioner',
+      },
+    ],
+  },
+  {
+    id: 9,
+    name: 'Maybach',
+    category: 'Sedan',
+    price: 70,
+    image: CarsImg,
+    transmission: 'Automatic',
+    fuel: 'PB 95',
+    features: [
+      {
+        icon: TransmissionIcon,
+        label: 'Automat',
+      },
+      {
+        icon: FuelIcon,
+        label: 'PB 95',
+      },
+      {
+        icon: SnowIcon,
+        label: 'Air Conditioner',
+      },
+    ],
+  },
 ]

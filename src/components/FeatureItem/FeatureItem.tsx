@@ -5,8 +5,6 @@ import {
   FeatureTitle,
 } from './FeatureItem.styles'
 
-
-
 interface FeatureItemProps {
   icon: string
   title: string

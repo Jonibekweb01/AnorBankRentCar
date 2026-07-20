@@ -11,7 +11,6 @@ export const CarCardWrapper = styled.article`
     transform 180ms ease,
     box-shadow 180ms ease;
 
- 
   @media (max-width: 768px) {
     padding: 20px;
   }
