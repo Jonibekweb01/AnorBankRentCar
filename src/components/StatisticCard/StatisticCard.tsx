@@ -1,4 +1,4 @@
-import type { StatisticItem } from '../../shared/types/statistic'
+import type { StatisticItem } from '../../types/statistic'
 
 import {
   StatisticCardContent,

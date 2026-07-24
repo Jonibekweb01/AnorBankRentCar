@@ -1,8 +1,8 @@
 import type { StatisticItem } from '../types/statistic'
-import Cal from '../../assets/images/stats-calendar-icon.svg'
-import Mil from '../../assets/images/stats-mileage-icon.svg'
-import Cus from '../../assets/images/stats-customers-icon.svg'
-import Car7 from '../../assets/images/stats-car-icon.svg'
+import Cal from '../assets/images/stats-calendar-icon.svg'
+import Mil from '../assets/images/stats-mileage-icon.svg'
+import Cus from '../assets/images/stats-customers-icon.svg'
+import Car7 from '../assets/images/stats-car-icon.svg'
 
 export const statistics: StatisticItem[] = [
   {

@@ -1,6 +1,5 @@
 import { Button, Paper, Select, Stack, Title } from '@mantine/core'
 import { DatePickerInput } from '@mantine/dates'
-import { useForm } from '@mantine/form'
 
 import {
   HeroFormButton,
@@ -8,14 +7,6 @@ import {
   HeroFormSelect,
   HeroFormWrapper,
 } from './HeroForm.styles'
-
-interface HeroFormValues {
-  carType: string
-  rentalPlace: string
-  returnPlace: string
-  rentalDate: Date | null
-  returnDate: Date | null
-}
 
 interface HeroFormProps {
   backgroundColor?: string
@@ -25,49 +16,6 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
   const isDarkBackground = backgroundColor.toLowerCase() === '#a30041'
   const wrapperPadding = isDarkBackground ? '64px 32px 3px' : '34px 32px 33px'
   const titleColor = isDarkBackground ? '#ffffff' : '#111111'
-
-  const form = useForm<HeroFormValues>({
-    mode: 'uncontrolled',
-
-    initialValues: {
-      carType: '',
-      rentalPlace: '',
-      returnPlace: '',
-      rentalDate: null,
-      returnDate: null,
-    },
-
-    validate: {
-      carType: (value) => (!value ? 'Select a car type' : null),
-
-      rentalPlace: (value) => (!value ? 'Select a rental location' : null),
-
-      returnPlace: (value) => (!value ? 'Select a return location' : null),
-
-      rentalDate: (value) => (!value ? 'Select a rental date' : null),
-
-      returnDate: (value, values) => {
-        if (!value) {
-          return 'Select a return date'
-        }
-
-        if (
-          values.rentalDate &&
-          new Date(value) < new Date(values.rentalDate)
-        ) {
-          return 'Return date cannot be earlier than rental date'
-        }
-
-        return null
-      },
-    },
-  })
-
-  const handleSubmit = (values: HeroFormValues) => {
-    console.log(values)
-  }
-
-  const rentalDateValue = form.getValues().rentalDate
 
   return (
     <Paper
@@ -79,7 +27,7 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
         Book your car
       </Title>
 
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={(event) => event.preventDefault()}>
         <Stack gap={16}>
           <Select
             className={HeroFormSelect}
@@ -91,8 +39,7 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
               { value: 'electric', label: 'Electric' },
             ]}
             allowDeselect={false}
-            key={form.key('carType')}
-            {...form.getInputProps('carType')}
+            name="carType"
           />
 
           <Select
@@ -105,8 +52,7 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
             ]}
             searchable
             allowDeselect={false}
-            key={form.key('rentalPlace')}
-            {...form.getInputProps('rentalPlace')}
+            name="rentalPlace"
           />
 
           <Select
@@ -119,8 +65,7 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
             ]}
             searchable
             allowDeselect={false}
-            key={form.key('returnPlace')}
-            {...form.getInputProps('returnPlace')}
+            name="returnPlace"
           />
 
           <DatePickerInput
@@ -129,18 +74,16 @@ export const HeroForm = ({ backgroundColor = '#ffffff' }: HeroFormProps) => {
             valueFormat="DD MMM YYYY"
             minDate={new Date()}
             clearable
-            key={form.key('rentalDate')}
-            {...form.getInputProps('rentalDate')}
+            name="rentalDate"
           />
 
           <DatePickerInput
             className={HeroFormDate}
             placeholder="Return date"
             valueFormat="DD MMM YYYY"
-            minDate={rentalDateValue ? new Date(rentalDateValue) : new Date()}
+            minDate={new Date()}
             clearable
-            key={form.key('returnDate')}
-            {...form.getInputProps('returnDate')}
+            name="returnDate"
           />
 
           <Button component={HeroFormButton} type="submit" fullWidth>

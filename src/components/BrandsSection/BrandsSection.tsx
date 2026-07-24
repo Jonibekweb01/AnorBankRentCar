@@ -1,6 +1,6 @@
 import { Container } from '@mantine/core'
 
-import { brands } from '../../shared/data/brands'
+import { brands } from '../../data/brands'
 
 import {
   BrandSectionWrapper,

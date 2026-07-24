@@ -1,6 +1,6 @@
 import { Container } from '@mantine/core'
 
-import type { StatisticItem } from '../../../../shared/types/statistic'
+import type { StatisticItem } from '../../../../types/statistic'
 import { StatisticCard } from '../../../../components/StatisticCard/StatisticCard'
 
 import {

@@ -10,6 +10,7 @@ export const CarCardWrapper = styled.article`
   transition:
     transform 180ms ease,
     box-shadow 180ms ease;
+  min-height: 100%;
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -90,6 +91,7 @@ export const CarFeatureIcon = styled.img`
 
 export const CarCardButton = styled.button`
   width: 100%;
+  margin-top: auto;
   padding: 14px 20px;
   border: 0;
   border-radius: 15px;

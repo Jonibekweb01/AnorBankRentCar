@@ -1,4 +1,4 @@
-import type { Car } from '../../shared/types/car'
+import type { Car } from '../../types/car'
 import {
   CarCardWrapper,
   CarCardImage,
@@ -22,7 +22,6 @@ export const CarCard = ({ car }: CarCardProps) => {
   return (
     <CarCardWrapper>
       <CarCardImage src={car.image} alt={car.name} width={368} height={240} />
-
       <CarCardHeader>
         <CarCardTitle>
           <CarName>{car.name}</CarName>

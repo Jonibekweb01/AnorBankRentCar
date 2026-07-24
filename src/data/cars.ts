@@ -1,8 +1,8 @@
 import type { Car } from '../types/car'
-import CarsImg from '../../assets/images/car-grid-placeholder.png'
-import TransmissionIcon from '../../assets/images/transmission-icon.svg'
-import FuelIcon from '../../assets/images/fuel-icon.svg'
-import SnowIcon from '../../assets/images/climate-icon.svg'
+import CarsImg from '../assets/images/car-grid-placeholder.png'
+import TransmissionIcon from '../assets/images/transmission-icon.svg'
+import FuelIcon from '../assets/images/fuel-icon.svg'
+import SnowIcon from '../assets/images/climate-icon.svg'
 
 export const cars: Car[] = [
   {

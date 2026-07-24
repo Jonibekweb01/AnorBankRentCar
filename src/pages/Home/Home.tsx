@@ -1,4 +1,4 @@
-import { statistics } from '../../shared/data/statistics'
+import { statistics } from '../../data/statistics'
 
 import {
   AboutSection,

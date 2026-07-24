@@ -3,8 +3,6 @@ import '@mantine/dates/styles.css'
 import '@mantine/notifications/styles.css'
 
 import { MantineProvider } from '@mantine/core'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { Home } from './pages/Home/Home'
@@ -14,9 +12,8 @@ import { Vehicles } from './pages/Vehicles/Vehicles'
 import { CarDetails } from './pages/CarDetails/CarDetails'
 import { About } from './pages/About/About'
 import { Contact } from './pages/Contact/Contact'
-import { theme } from './shared/config/theme'
-
-const client = new QueryClient()
+import { theme } from './config/theme'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -50,14 +47,13 @@ const router = createBrowserRouter([
     ],
   },
 ])
-
+const client = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={client}>
       <MantineProvider theme={theme}>
         <RouterProvider router={router} />
       </MantineProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }

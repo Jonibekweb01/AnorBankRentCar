@@ -4,7 +4,8 @@ export const CarsGridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-
+  align-items: top;
+  justify-content: space-between;
   @media (max-width: 992px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

@@ -1,4 +1,4 @@
-import type { Car } from '../../shared/types/car'
+import type { Car } from '../../types/car'
 import { CarCard } from '../CarCard/CarCard'
 import { CarsGridWrapper } from './CarsGrid.styles'
 
