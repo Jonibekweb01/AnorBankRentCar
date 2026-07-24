@@ -3,6 +3,7 @@ import '@mantine/dates/styles.css'
 import '@mantine/notifications/styles.css'
 
 import { MantineProvider } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { Home } from './pages/Home/Home'
@@ -14,8 +15,40 @@ import { About } from './pages/About/About'
 import { Contact } from './pages/Contact/Contact'
 import { theme } from './config/theme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Login } from './pages/AdminLogin/AdminLogin'
+import { DashboardLayout } from './components/Dashboard/DashboardLayout'
+import { DashboardHome } from './pages/Dashboard/DashboardHome'
+import { Products } from './pages/Dashboard/Products'
+import { Categories } from './pages/Dashboard/Categories'
+import { AdminProtectedRoute } from './components/auth/AdminProtectedRoute'
 
 const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <AdminProtectedRoute>
+        <DashboardLayout />
+      </AdminProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: 'products',
+        element: <Products />,
+      },
+      {
+        path: 'categories',
+        element: <Categories />,
+      },
+    ],
+  },
   {
     path: '/',
     element: <Layout />,
@@ -52,7 +85,9 @@ function App() {
   return (
     <QueryClientProvider client={client}>
       <MantineProvider theme={theme}>
-        <RouterProvider router={router} />
+        <ModalsProvider>
+          <RouterProvider router={router} />
+        </ModalsProvider>
       </MantineProvider>
     </QueryClientProvider>
   )
