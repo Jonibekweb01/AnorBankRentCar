@@ -85,7 +85,9 @@ export const Categories = () => {
     <CategoriesPageWrapper>
       <CategoriesHeader>
         <h2>Categories</h2>
-        <Button onClick={() => handleOpenModal()}>Add Category</Button>
+        <Button onClick={() => handleOpenModal()} aria-label="Add new category">
+          Add Category
+        </Button>
       </CategoriesHeader>
 
       {isLoading ? (

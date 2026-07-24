@@ -154,7 +154,9 @@ export const Products = () => {
     <ProductsPageWrapper>
       <ProductsHeader>
         <h2>Products</h2>
-        <Button onClick={() => handleOpenModal()}>Add Product</Button>
+        <Button onClick={() => handleOpenModal()} aria-label="Add new product">
+          Add Product
+        </Button>
       </ProductsHeader>
 
       <FiltersWrapper>

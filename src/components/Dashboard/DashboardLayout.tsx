@@ -41,6 +41,7 @@ export const DashboardLayout = () => {
             as="button"
             $active={isActive('/dashboard')}
             onClick={() => navigate('/dashboard')}
+            aria-label="Go to dashboard home"
             style={{
               background: isActive('/dashboard') ? '#1a252f' : 'transparent',
               border: 'none',
@@ -55,6 +56,7 @@ export const DashboardLayout = () => {
             as="button"
             $active={isActive('/dashboard/products')}
             onClick={() => navigate('/dashboard/products')}
+            aria-label="Go to products page"
             style={{
               background: isActive('/dashboard/products')
                 ? '#1a252f'
@@ -71,6 +73,7 @@ export const DashboardLayout = () => {
             as="button"
             $active={isActive('/dashboard/categories')}
             onClick={() => navigate('/dashboard/categories')}
+            aria-label="Go to categories page"
             style={{
               background: isActive('/dashboard/categories')
                 ? '#1a252f'

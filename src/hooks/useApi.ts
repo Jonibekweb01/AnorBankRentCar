@@ -90,9 +90,15 @@ export const useProductsCount = () => {
   return useQuery({
     queryKey: ['products-count'],
     queryFn: async () => {
-      const response = await api.get<Product[]>('/products')
+      const response = await api.get<Product[]>('/products', {
+        params: {
+          offset: 0,
+          limit: 500,
+        },
+      })
       return response.data.length
     },
+    staleTime: 1000 * 60 * 5,
   })
 }
 
@@ -120,7 +126,12 @@ export const useAveragePrice = () => {
   return useQuery({
     queryKey: ['average-price'],
     queryFn: async () => {
-      const response = await api.get<Product[]>('/products')
+      const response = await api.get<Product[]>('/products', {
+        params: {
+          offset: 0,
+          limit: 500,
+        },
+      })
       const products = response.data
       if (products.length === 0) return 0
       const total = products.reduce(
@@ -129,6 +140,7 @@ export const useAveragePrice = () => {
       )
       return Math.round(total / products.length)
     },
+    staleTime: 1000 * 60 * 5,
   })
 }
 
