@@ -5,7 +5,7 @@ export interface AuthState {
   accessToken: string | null
   refreshToken: string | null
   setTokens: (accessToken: string, refreshToken: string) => void
-  logout: () => void
+  logOut: () => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -15,10 +15,8 @@ export const useAuthStore = create<AuthState>()(
       refreshToken: null,
       setTokens: (accessToken, refreshToken) =>
         set({ accessToken, refreshToken }),
-      logout: () => set({ accessToken: null, refreshToken: null }),
+      logOut: () => set({ accessToken: null, refreshToken: null }),
     }),
-    {
-      name: 'auth-store',
-    }
+    { name: 'auth-store' }
   )
 )

@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { Button, TextInput, Modal, LoadingOverlay } from '@mantine/core'
+import {
+  Box,
+  Button,
+  LoadingOverlay,
+  Modal,
+  Stack,
+  Text,
+  TextInput,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { modals } from '@mantine/modals'
 import {
@@ -19,6 +27,7 @@ import {
   EmptyState,
   LoadingState,
 } from './Categories.styles'
+import { IconEdit, IconPlus, IconTrash } from '@tabler/icons-react'
 
 export const Categories = () => {
   const [modalOpened, setModalOpened] = useState(false)
@@ -84,8 +93,23 @@ export const Categories = () => {
   return (
     <CategoriesPageWrapper>
       <CategoriesHeader>
-        <h2>Categories</h2>
-        <Button onClick={() => handleOpenModal()} aria-label="Add new category">
+        <Box>
+          <Text size="xs" tt="uppercase" c="dimmed" fw={700}>
+            Catalog management
+          </Text>
+          <Text size="xl" fw={700} style={{ color: '#111111' }}>
+            Categories
+          </Text>
+        </Box>
+        <Button
+          onClick={() => handleOpenModal()}
+          aria-label="Add new category"
+          leftSection={<IconPlus size={16} />}
+          style={{
+            background: 'linear-gradient(90deg, #b10045 0%, #ff9d0a 100%)',
+            border: 'none',
+          }}
+        >
           Add Category
         </Button>
       </CategoriesHeader>
@@ -115,12 +139,16 @@ export const Categories = () => {
                   <td>
                     <CategoryImage src={category.image} alt={category.name} />
                   </td>
-                  <td>{category.name}</td>
+                  <td>
+                    <Text fw={600}>{category.name}</Text>
+                  </td>
                   <td>
                     <ActionButtons>
                       <Button
                         size="xs"
                         variant="light"
+                        color="orange"
+                        leftSection={<IconEdit size={14} />}
                         onClick={() => handleOpenModal(category)}
                         disabled={updateMutation.isPending}
                       >
@@ -130,6 +158,7 @@ export const Categories = () => {
                         size="xs"
                         color="red"
                         variant="light"
+                        leftSection={<IconTrash size={14} />}
                         onClick={() => handleDelete(category.id)}
                         loading={deleteMutation.isPending}
                         disabled={deleteMutation.isPending}
@@ -149,11 +178,11 @@ export const Categories = () => {
         opened={modalOpened}
         onClose={handleCloseModal}
         title={editingCategory ? 'Edit Category' : 'Create Category'}
+        centered
+        size="md"
       >
         <form onSubmit={handleSubmit}>
-          <div
-            style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}
-          >
+          <Stack gap="md">
             <TextInput
               label="Name"
               placeholder="Category name"
@@ -168,10 +197,14 @@ export const Categories = () => {
               type="submit"
               loading={createMutation.isPending || updateMutation.isPending}
               disabled={createMutation.isPending || updateMutation.isPending}
+              style={{
+                background: 'linear-gradient(90deg, #b10045 0%, #ff9d0a 100%)',
+                border: 'none',
+              }}
             >
               {editingCategory ? 'Update' : 'Create'}
             </Button>
-          </div>
+          </Stack>
         </form>
       </Modal>
     </CategoriesPageWrapper>

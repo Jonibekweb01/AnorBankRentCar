@@ -1,15 +1,27 @@
 import { useNavigate } from 'react-router-dom'
 import {
-  Container,
+  Alert,
+  Box,
+  Button,
+  Checkbox,
   Paper,
   PasswordInput,
-  TextInput,
-  Button,
-  Title,
   Stack,
+  Text,
+  TextInput,
+  ThemeIcon,
+  Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import {
+  IconAlertCircle,
+  IconCar,
+  IconLock,
+  IconMail,
+  IconShieldCheck,
+} from '@tabler/icons-react'
 import { useLogin } from '../../hooks/useApi'
+import logo from '../../assets/logo/images.png'
 
 export const Login = () => {
   const navigate = useNavigate()
@@ -35,45 +47,168 @@ export const Login = () => {
   })
 
   return (
-    <Container size={400} my={40}>
-      <Paper p="xl" radius="md" withBorder>
-        <Title order={2} mb="lg">
-          Admin Panel
-        </Title>
+    <Box
+      mih="100vh"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px',
+        background:
+          'linear-gradient(135deg, #fff8fb 0%, #fff4e8 45%, #ffffff 100%)',
+      }}
+    >
+      <Paper
+        shadow="xl"
+        radius="xl"
+        p={{ base: 'lg', md: 'xl' }}
+        style={{
+          width: '100%',
+          maxWidth: 1020,
+          overflow: 'hidden',
+          border: '1px solid rgba(177, 0, 69, 0.08)',
+        }}
+      >
+        <Box
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1.05fr 0.95fr',
+            gap: 0,
+          }}
+        >
+          <Box
+            style={{
+              padding: '32px',
+              background: 'linear-gradient(145deg, #b10045 0%, #8b0034 100%)',
+              color: '#fff',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              gap: '24px',
+            }}
+          >
+            <Box>
+              <ThemeIcon size={54} radius="xl" color="white" variant="light">
+                <IconCar size={28} color="#b10045" />
+              </ThemeIcon>
 
-        <form onSubmit={handleSubmit}>
-          <Stack gap="md">
-            <TextInput
-              label="Email"
-              placeholder="your@email.com"
-              {...form.getInputProps('email')}
-            />
+              <Title
+                order={1}
+                mt="md"
+                style={{ color: '#fff', lineHeight: 1.1 }}
+              >
+                Admin paneliga xush kelibsiz
+              </Title>
+              <Text
+                size="sm"
+                mt="sm"
+                style={{ color: 'rgba(255,255,255,0.82)' }}
+              >
+                Avtomobillar, kategoriyalar va mijozlar bilan ishlashni bitta
+                xavfsiz dashboard orqali boshqaring.
+              </Text>
+            </Box>
 
-            <PasswordInput
-              label="Password"
-              placeholder="Your password"
-              {...form.getInputProps('password')}
-            />
-
-            <Button
-              fullWidth
-              type="submit"
-              loading={loginMutation.isPending}
-              disabled={loginMutation.isPending}
+            <Box
+              style={{
+                background: 'rgba(255,255,255,0.14)',
+                border: '1px solid rgba(255,255,255,0.18)',
+                borderRadius: '16px',
+                padding: '16px',
+              }}
             >
-              Login
-            </Button>
-          </Stack>
-        </form>
+              <Text fw={600} size="sm">
+                Xavfsiz kirish
+              </Text>
+              <Text size="sm" mt={4} style={{ color: 'rgba(255,255,255,0.8)' }}>
+                Hisobingizga faqat ruxsatli administratorlar kirishi mumkin.
+              </Text>
+            </Box>
+          </Box>
 
-        {loginMutation.isError && (
-          <div style={{ color: 'red', marginTop: '1rem' }}>
-            {loginMutation.error instanceof Error
-              ? loginMutation.error.message
-              : 'Login failed'}
-          </div>
-        )}
+          <Box style={{ padding: '32px', background: '#fff' }}>
+            <Box
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '20px',
+              }}
+            >
+              <Box>
+                <Title order={2} style={{ color: '#111111' }}>
+                  Tizimga kirish
+                </Title>
+                <Text size="sm" c="dimmed" mt={4}>
+                  Davom etish uchun ma’lumotlaringizni kiriting.
+                </Text>
+              </Box>
+
+              <img
+                src={logo}
+                alt="AnorBank logo"
+                style={{ width: 56, height: 56, objectFit: 'contain' }}
+              />
+            </Box>
+
+            <form onSubmit={handleSubmit}>
+              <Stack gap="md">
+                <TextInput
+                  label="Email"
+                  placeholder="your@email.com"
+                  leftSection={<IconMail size={16} />}
+                  leftSectionProps={{ style: { color: '#b10045' } }}
+                  size="md"
+                  radius="md"
+                  {...form.getInputProps('email')}
+                />
+
+                <PasswordInput
+                  label="Parol"
+                  placeholder="Parolingizni kiriting"
+                  leftSection={<IconLock size={16} />}
+                  leftSectionProps={{ style: { color: '#b10045' } }}
+                  size="md"
+                  radius="md"
+                  {...form.getInputProps('password')}
+                />
+
+                <Checkbox label="Meni eslab qol" size="sm" />
+
+                <Button
+                  fullWidth
+                  type="submit"
+                  loading={loginMutation.isPending}
+                  disabled={loginMutation.isPending}
+                  size="md"
+                  radius="md"
+                  leftSection={<IconShieldCheck size={16} />}
+                  style={{
+                    background:
+                      'linear-gradient(90deg, #b10045 0%, #ff9d0a 100%)',
+                    border: 'none',
+                  }}
+                >
+                  Kirish
+                </Button>
+              </Stack>
+            </form>
+
+            {loginMutation.isError && (
+              <Alert
+                color="red"
+                variant="light"
+                icon={<IconAlertCircle size={16} />}
+                mt="md"
+              >
+                {loginMutation.error instanceof Error
+                  ? loginMutation.error.message
+                  : 'Login failed'}
+              </Alert>
+            )}
+          </Box>
+        </Box>
       </Paper>
-    </Container>
+    </Box>
   )
 }

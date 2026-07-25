@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import {
+  Badge,
+  Box,
   Button,
-  TextInput,
-  Select,
-  Pagination,
   Modal,
+  Pagination,
+  Select,
+  Stack,
+  Text,
+  TextInput,
   LoadingOverlay,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
@@ -31,6 +35,14 @@ import {
   EmptyState,
   LoadingState,
 } from './Products.styles'
+import {
+  IconPlus,
+  IconSearch,
+  IconFilter,
+  IconCurrencyDollar,
+  IconEdit,
+  IconTrash,
+} from '@tabler/icons-react'
 
 const LIMIT = 10
 
@@ -153,8 +165,23 @@ export const Products = () => {
   return (
     <ProductsPageWrapper>
       <ProductsHeader>
-        <h2>Products</h2>
-        <Button onClick={() => handleOpenModal()} aria-label="Add new product">
+        <Box>
+          <Text size="xs" tt="uppercase" c="dimmed" fw={700}>
+            Catalog management
+          </Text>
+          <Text size="xl" fw={700} style={{ color: '#111111' }}>
+            Products
+          </Text>
+        </Box>
+        <Button
+          onClick={() => handleOpenModal()}
+          aria-label="Add new product"
+          leftSection={<IconPlus size={16} />}
+          style={{
+            background: 'linear-gradient(90deg, #b10045 0%, #ff9d0a 100%)',
+            border: 'none',
+          }}
+        >
           Add Product
         </Button>
       </ProductsHeader>
@@ -164,10 +191,12 @@ export const Products = () => {
           placeholder="Search products..."
           value={title || ''}
           onChange={(e) => handleSearch(e.currentTarget.value)}
-          style={{ flex: 1 }}
+          leftSection={<IconSearch size={16} />}
+          style={{ flex: 1, minWidth: 220 }}
         />
         <Select
           placeholder="Filter by category"
+          leftSection={<IconFilter size={16} />}
           data={
             categories?.map((cat: Category) => ({
               value: cat.id.toString(),
@@ -177,15 +206,16 @@ export const Products = () => {
           value={categoryId}
           onChange={handleCategoryFilter}
           clearable
-          style={{ flex: 1 }}
+          style={{ minWidth: 220 }}
         />
         <Select
           placeholder="Sort by..."
+          leftSection={<IconCurrencyDollar size={16} />}
           data={[{ value: 'price', label: 'Price (Low to High)' }]}
           value={sortBy}
           onChange={(value) => setSearchParams({ sortBy: value || '' })}
           clearable
-          style={{ flex: 1 }}
+          style={{ minWidth: 220 }}
         />
       </FiltersWrapper>
 
@@ -220,14 +250,27 @@ export const Products = () => {
                         alt={product.title}
                       />
                     </td>
-                    <td>{product.title}</td>
-                    <td>{product.category.name}</td>
+                    <td>
+                      <Box>
+                        <Text fw={600}>{product.title}</Text>
+                        <Text size="xs" c="dimmed">
+                          {product.description?.slice(0, 60)}
+                        </Text>
+                      </Box>
+                    </td>
+                    <td>
+                      <Badge color="pink" variant="light">
+                        {product.category.name}
+                      </Badge>
+                    </td>
                     <td>${product.price}</td>
                     <td>
                       <ActionButtons>
                         <Button
                           size="xs"
                           variant="light"
+                          color="orange"
+                          leftSection={<IconEdit size={14} />}
                           onClick={() => handleOpenModal(product)}
                           disabled={updateMutation.isPending}
                         >
@@ -237,6 +280,7 @@ export const Products = () => {
                           size="xs"
                           color="red"
                           variant="light"
+                          leftSection={<IconTrash size={14} />}
                           onClick={() => handleDelete(product.id)}
                           loading={deleteMutation.isPending}
                           disabled={deleteMutation.isPending}
@@ -273,11 +317,11 @@ export const Products = () => {
         opened={modalOpened}
         onClose={handleCloseModal}
         title={editingProduct ? 'Edit Product' : 'Create Product'}
+        centered
+        size="lg"
       >
         <form onSubmit={handleSubmit}>
-          <div
-            style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}
-          >
+          <Stack gap="md">
             <TextInput
               label="Title"
               placeholder="Product title"
@@ -314,10 +358,14 @@ export const Products = () => {
               type="submit"
               loading={createMutation.isPending || updateMutation.isPending}
               disabled={createMutation.isPending || updateMutation.isPending}
+              style={{
+                background: 'linear-gradient(90deg, #b10045 0%, #ff9d0a 100%)',
+                border: 'none',
+              }}
             >
               {editingProduct ? 'Update' : 'Create'}
             </Button>
-          </div>
+          </Stack>
         </form>
       </Modal>
     </ProductsPageWrapper>

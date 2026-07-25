@@ -1,68 +1,94 @@
-import { Grid, Card, Text, Skeleton, Group } from '@mantine/core'
+import { Card, Grid, Group, Skeleton, Stack, Text } from '@mantine/core'
 import {
   useProductsCount,
   useCategoriesCount,
   useAveragePrice,
 } from '../../hooks/useApi'
-import { IconPackage, IconTags, IconCurrency } from '@tabler/icons-react'
+import { IconCurrency, IconPackage, IconTags } from '@tabler/icons-react'
 
 export const DashboardHome = () => {
   const productsCount = useProductsCount()
   const categoriesCount = useCategoriesCount()
   const averagePrice = useAveragePrice()
 
+  const cards = [
+    {
+      title: 'Total Products',
+      value: productsCount.data,
+      icon: <IconPackage size={22} />,
+      loading: productsCount.isLoading,
+      color: '#b10045',
+    },
+    {
+      title: 'Total Categories',
+      value: categoriesCount.data,
+      icon: <IconTags size={22} />,
+      loading: categoriesCount.isLoading,
+      color: '#ff9d0a',
+    },
+    {
+      title: 'Average Price',
+      value: averagePrice.data ? `$${averagePrice.data}` : '$0',
+      icon: <IconCurrency size={22} />,
+      loading: averagePrice.isLoading,
+      color: '#1f2937',
+    },
+  ]
+
   return (
-    <div>
-      <h2>Dashboard Overview</h2>
+    <Stack gap="md">
+      <div>
+        <Text size="xs" tt="uppercase" c="dimmed" fw={700}>
+          Overview
+        </Text>
+        <Text size="xl" fw={700} style={{ color: '#111111' }}>
+          Dashboard summary
+        </Text>
+      </div>
+
       <Grid>
-        <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-          <Card padding="lg" radius="md" withBorder>
-            <Group justify="space-between" mb="md">
-              <Text fw={500}>Total Products</Text>
-              <IconPackage size={24} />
-            </Group>
-            {productsCount.isLoading ? (
-              <Skeleton height={40} />
-            ) : (
-              <Text size="xl" fw="bold">
-                {productsCount.data}
-              </Text>
-            )}
-          </Card>
-        </Grid.Col>
+        {cards.map((card) => (
+          <Grid.Col span={{ base: 12, sm: 6, md: 4 }} key={card.title}>
+            <Card
+              padding="lg"
+              radius="20px"
+              withBorder
+              style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #fff8fb 100%)',
+                borderColor: 'rgba(177, 0, 69, 0.08)',
+              }}
+            >
+              <Group justify="space-between" mb="md">
+                <Text fw={600} size="sm">
+                  {card.title}
+                </Text>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: `${card.color}14`,
+                    color: card.color,
+                  }}
+                >
+                  {card.icon}
+                </div>
+              </Group>
 
-        <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-          <Card padding="lg" radius="md" withBorder>
-            <Group justify="space-between" mb="md">
-              <Text fw={500}>Total Categories</Text>
-              <IconTags size={24} />
-            </Group>
-            {categoriesCount.isLoading ? (
-              <Skeleton height={40} />
-            ) : (
-              <Text size="xl" fw="bold">
-                {categoriesCount.data}
-              </Text>
-            )}
-          </Card>
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-          <Card padding="lg" radius="md" withBorder>
-            <Group justify="space-between" mb="md">
-              <Text fw={500}>Average Price</Text>
-              <IconCurrency size={24} />
-            </Group>
-            {averagePrice.isLoading ? (
-              <Skeleton height={40} />
-            ) : (
-              <Text size="xl" fw="bold">
-                ${averagePrice.data}
-              </Text>
-            )}
-          </Card>
-        </Grid.Col>
+              {card.loading ? (
+                <Skeleton height={36} />
+              ) : (
+                <Text size="28px" fw={700} style={{ color: '#111111' }}>
+                  {card.value}
+                </Text>
+              )}
+            </Card>
+          </Grid.Col>
+        ))}
       </Grid>
-    </div>
+    </Stack>
   )
 }

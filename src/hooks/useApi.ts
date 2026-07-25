@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import api from '../api/client'
 import { useAuthStore } from '../store/authStore'
+import { $api } from '../api/api'
 
 interface LoginResponse {
   access_token: string
@@ -42,7 +42,10 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: async (credentials: { email: string; password: string }) => {
-      const response = await api.post<LoginResponse>('/auth/login', credentials)
+      const response = await $api.post<LoginResponse>(
+        '/auth/login',
+        credentials
+      )
       return response.data
     },
     onSuccess: (data) => {
@@ -57,7 +60,7 @@ export const useProfile = () => {
   return useQuery({
     queryKey: ['profile'],
     queryFn: async () => {
-      const response = await api.get<UserProfile>('/auth/profile')
+      const response = await $api.get<UserProfile>('/auth/profile')
       return response.data
     },
     enabled: !!accessToken,
@@ -78,7 +81,7 @@ export const useProducts = (filters: ProductFilters) => {
         params.append('title', filters.title)
       }
 
-      const response = await api.get<Product[]>(
+      const response = await $api.get<Product[]>(
         `/products?${params.toString()}`
       )
       return response.data
@@ -90,7 +93,7 @@ export const useProductsCount = () => {
   return useQuery({
     queryKey: ['products-count'],
     queryFn: async () => {
-      const response = await api.get<Product[]>('/products', {
+      const response = await $api.get<Product[]>('/products', {
         params: {
           offset: 0,
           limit: 500,
@@ -106,7 +109,7 @@ export const useCategories = () => {
   return useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await api.get<Category[]>('/categories')
+      const response = await $api.get<Category[]>('/categories')
       return response.data
     },
   })
@@ -116,7 +119,7 @@ export const useCategoriesCount = () => {
   return useQuery({
     queryKey: ['categories-count'],
     queryFn: async () => {
-      const response = await api.get<Category[]>('/categories')
+      const response = await $api.get<Category[]>('/categories')
       return response.data.length
     },
   })
@@ -126,7 +129,7 @@ export const useAveragePrice = () => {
   return useQuery({
     queryKey: ['average-price'],
     queryFn: async () => {
-      const response = await api.get<Product[]>('/products', {
+      const response = await $api.get<Product[]>('/products', {
         params: {
           offset: 0,
           limit: 500,
@@ -159,7 +162,7 @@ export const useCreateProduct = () => {
             images: string[]
           }
     ) => {
-      const response = await api.post<Product>('/products', product)
+      const response = await $api.post<Product>('/products', product)
       return response.data
     },
     onSuccess: () => {
@@ -189,7 +192,7 @@ export const useUpdateProduct = () => {
             images?: string[]
           }
     }) => {
-      const response = await api.put<Product>(`/products/${id}`, product)
+      const response = await $api.put<Product>(`/products/${id}`, product)
       return response.data
     },
     onSuccess: () => {
@@ -204,7 +207,7 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      await api.delete(`/products/${id}`)
+      await $api.delete(`/products/${id}`)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
@@ -219,7 +222,7 @@ export const useCreateCategory = () => {
 
   return useMutation({
     mutationFn: async (category: Omit<Category, 'id'>) => {
-      const response = await api.post<Category>('/categories', category)
+      const response = await $api.post<Category>('/categories', category)
       return response.data
     },
     onSuccess: () => {
@@ -240,7 +243,7 @@ export const useUpdateCategory = () => {
       id: number
       category: Partial<Category>
     }) => {
-      const response = await api.put<Category>(`/categories/${id}`, category)
+      const response = await $api.put<Category>(`/categories/${id}`, category)
       return response.data
     },
     onSuccess: () => {
@@ -254,7 +257,7 @@ export const useDeleteCategory = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      await api.delete(`/categories/${id}`)
+      await $api.delete(`/categories/${id}`)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] })
