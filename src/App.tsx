@@ -21,7 +21,7 @@ import { DashboardHome } from './pages/Dashboard/DashboardHome'
 import { Products } from './pages/Dashboard/Products'
 import { Categories } from './pages/Dashboard/Categories'
 import { AdminProtectedRoute } from './components/auth/AdminProtectedRoute'
-
+const client = new QueryClient()
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -80,7 +80,6 @@ const router = createBrowserRouter([
     ],
   },
 ])
-const client = new QueryClient()
 function App() {
   return (
     <QueryClientProvider client={client}>
